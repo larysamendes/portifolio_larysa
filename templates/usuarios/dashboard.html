@@ -1,0 +1,31 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+
+					<div class="page-header text-center py-3">
+						<h1>Jogos de {{ jogo.usuario }} </h1>
+					</div>
+					{% include 'partils/_alertas.html' %}
+					<div class="row">
+						{% for jogo in jogos %}
+						<div class="col-sm-4" >
+							<div class="card" style=" width: 18rem">
+								{% if jogo.capa_jogo == '' %}
+									<img src="static/img/img_1.png" class="card-img-top" alt="...">
+								{% else %}
+									<img src="{{ jogo.capa_jogo.url }}" class="card-img-top" alt="...">
+								{% endif %}
+								<div class="card-body">
+									<a href="{% url 'jogo' jogo.id %}" class="text-decoration-none text-reset"><h4 class="card-title"> {{ jogo.nome }} </h4></a>
+									<p class="card-text"> Data lançamento: {{ jogo.data }} </p>
+									<p class="card-text"> Usuário: {{ jogo.usuario}} </p>
+									<a href="{% url 'edita_jogo' jogo.id %}" class="btn btn-primary">Editar</a>
+									<a href="{% url 'deleta_jogo' jogo.id %}" class="btn btn-danger">Deletar</a>
+
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+        <div class="row">
+        <div class="col-12">
+            <div align="center">
+                <h2>Criar Jogo</h2>
+            </div>
+        </div>
+    </div>
+    {% include 'partils/_alertas.html' %}
+    <form action="{% url 'atualiza_jogo' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" value="{{ jogo.id }}" name="jogo_id">
+        <div class="row d-inline">
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" value="{{ jogo.nome }}" name="nome" required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="ano_pub" class="form-label">Data de publicação</label>
+                <input type="date" class="form-control" id="ano_pub" value="{{ jogo.ano_pub | date: 'Y-n-d'}}" name="ano_pub" required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="genero" class="form-label">Gênero(s)</label>
+                <select class="form-select" multiple size="3" aria-label="multiple select example" id="genero" required>
+                    {% for genero in generos %}
+                        {% if genero in jogo.genero.all %}
+                            <option value="{{ genero.id }}"   selected>{{ genero.tipo }}</option>
+                        {% else %}
+                            <option value="{{ genero.id }}" >{{ genero.tipo }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-12 col-lg-6 mb-3">
+              <label for="capa_jogo" class="form-label">Capa do livro</label>
+              <input class="form-control" type="file" id="capa_jogo" name="capa_jogo">
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="plataforma" class="form-label">Plataforma(s)</label>
+                <select class="form-select" multiple size="3" aria-label="multiple select example" id="plataforma" required>
+                    {% for plataforma in plataformas %}
+                        {% if plataforma in jogo.plataforma.all %}
+                            <option value="{{ plataforma.id }}"   selected>{{ plataforma.nomePla }}</option>
+                        {% else %}
+                            <option value="{{ plataforma.id }}" >{{ plataforma.nomePla }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="enredo" class="form-label">Enredo</label>
+                <textarea class="form-control"  id="exampleFormControlTextarea1" rows="5" id="enredo" name="enredo">{{ jogo.enredo }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="critica" class="form-label">Crítica</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" id="critica"  name="critica">{{ jogo.critica }}</textarea>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="nota" class="form-label">Avaliação</label>
+                <input type="number" class="form-control" id="nota" value="{{ jogo.nota }}" name="nota" required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="desenvolvedor" class="form-label">Desenvolvedor(es)</label>
+                <select class="form-select" multiple size="3" name="desenvolvedor" aria-label="multiple select example" id="desenvolvedor" required>
+                    {% for  desenvolvedor in desenvolvedores %}
+                        {% if desenvolvedor in jogo.desenvolvedor.all %}
+                            <option value="{{ desenvolvedor.id }}"   selected>{{ desenvolvedor.nome }}</option>
+                        {% else %}
+                            <option value="{{ desenvolvedor.id }}" >{{ desenvolvedor.nome }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 col-lg-12">
+                <button class="btn btn-primary" type="submit">Atualizar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

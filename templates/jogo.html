@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+{%load static%}
+
+				<div class="page-header text-center py-3">
+					<h1>Jogo</h1>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						{% if jogo.capa_jogo == '' %}
+									<img src="static/img/img_1.png" class="card-img-top" alt="...">
+						{% else %}
+									<img src="{{ jogo.capa_jogo.url }}" class="card-img-top" alt="...">
+						{% endif %}
+					</div>
+					<div class="col-sm-8">
+									<p class="h4"><strong> Nome: </strong> {{ jogo.nome }} </p>
+									<p class="h4"><strong> Data de Lançamento: </strong>  {{ jogo.data }} </p>
+									<p class="h4" >Gênero:</p>
+									{% for genero in jogo.genero.all %}
+										<p class="h4">{{ genero.tipo }} </p>
+									{% endfor %}
+									<p class="h4">Plataforma:</p>
+									{% for plataforma in jogo.plataforma.all %}
+										<p class="h5"> {{ plataforma.nomePla }} </p>
+									{% endfor %}
+									<p class="h4"><strong> Enredo: </strong>  {{ jogo.enredo }} </p>
+									<p class="h4"><strong> Crítica: </strong>  {{ jogo.critica }} </p>
+									<p class="h4"><strong> Avaliação: </strong>  {{ jogo.avaliacao }} </p>
+									<p class="h4">Desenvolvedor:</p>
+									{% for desenvolvedor in jogo.desenvolvedores.all %}
+										<p class="h5"> {{ desenvolvedor.nome }} </p>
+									{% endfor %}
+									<p class="h4"> Usuário: {{ jogo.usuario}} </p>
+
+					</div>
+
+					{% endblock %}

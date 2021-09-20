@@ -1,0 +1,24 @@
+{% extends '../template.html' %}
+
+{% block conteudo %}
+    <div class="row">
+        <div class="col-12">
+            <div align="center">
+                <h2>Criar Plataforma</h2>
+            </div>
+        </div>
+    </div>
+    {% include 'partils/_alertas.html' %}
+    <form action="{% url 'cria_plataforma' %}" method="post">
+        {% csrf_token %}
+        <div class="row d-inline">
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="nomePla" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nomePla" name="nomePla" required>
+            </div>
+            <div class="col-12 col-lg-12">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

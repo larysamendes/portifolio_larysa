@@ -1,0 +1,48 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+
+					<div class="page-header text-center py-3">
+						<h1>Jogos Virtuais</h1>
+					</div>
+					<div class="row">
+                        {% if jogos %}
+						{% for jogo in jogos %}
+						<div class="col-sm-4" >
+							<div class="card" style=" width: 18rem">
+								{% if jogo.capa_jogo == '' %}
+									<img src="static/img/img_1.png" class="card-img-top" alt="...">
+								{% else %}
+									<img src="{{ jogo.capa_jogo.url }}" class="card-img-top" alt="...">
+								{% endif %}
+								<div class="card-body">
+									<h5 class="card-title"> {{ jogo.nome }} </h5>
+									<p class="card-text"> Data lançamento: {{ jogo.data }} </p>
+									<p>Gênero:</p>
+									{% for genero in jogo.genero.all %}
+										<p class="card-text">  {{ genero.tipo }} </p>
+									{% endfor %}
+									<p>Plataforma:</p>
+									{% for plataforma in jogo.plataforma.all %}
+										<p class="card-text"> {{ plataforma.nomePla }} </p>
+									{% endfor %}
+									<p class="card-text"> Enredo: {{ jogo.enredo }} </p>
+									<p class="card-text"> Crítica: {{ jogo.critica }} </p>
+									<p class="card-text"> Avaliação: {{ jogo.avaliacao }} </p>
+									<p>Desenvolvedor:</p>
+									{% for desenvolvedor in jogo.desenvolvedores.all %}
+										<p class="card-text"> {{ desenvolvedor.nome }} </p>
+									{% endfor %}
+									<a href="{% url 'jogo' jogo.id %}" class="btn btn-primary">Visualizar</a>
+								</div>
+							</div>
+							{% endfor %}
+                            {% else %}
+                                <div class="col-sm-4" >
+                                    <p>Jogo não encontrado!</p>
+                                </div>
+                            {% endif %}
+						</div>
+					</div>
+
+
+{% endblock %}
